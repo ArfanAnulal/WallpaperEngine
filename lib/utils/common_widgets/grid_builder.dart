@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wallpaper_app/models/wallpaper_model.dart';
 import 'package:wallpaper_app/services/remote/api_calls.dart';
+import 'package:wallpaper_app/utils/common_widgets/grid_cards.dart';
 
 class GridBuilder extends StatefulWidget {
   const GridBuilder({super.key});
@@ -37,19 +38,7 @@ class _GridBuilderState extends State<GridBuilder> {
                 itemCount: hits.length,
                 itemBuilder: (context, index){
                   final hit = hits[index];
-                  return Card(
-                            margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                            child: ListTile(
-                              title: Text(hit.id.toString(), style: const TextStyle(fontWeight: FontWeight.bold)),
-                              subtitle: Padding(
-                                padding: const EdgeInsets.only(top: 8.0),
-                                child: Text(hit.id.toString()),
-                              ),
-                              leading: CircleAvatar(
-                                child: Text(hit.id.toString()),
-                              ),
-                            ),
-                          );
+                  return GridCards(hitDetails:hit);
                 }
               );
               }
