@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       title: StringConstants.appName,
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
-      home: MyHome(),
+      home: HomeScreen(),
       
     );
   }
