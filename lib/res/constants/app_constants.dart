@@ -4,4 +4,6 @@ class AppConstants {
     'https://wallpapers.com/images/hd/vintage-background-f4qcazt6xyhvgmj0.jpg',
     'https://www.pixelstalk.net/wp-content/uploads/images2/Scenery-Wallpaper-HD-Widescreen.jpg',
   ];
+
+  static const String apiURL = 'https://pixabay.com/api/?key=38732945-eeeef489578b713cf2fccab90';
 }
