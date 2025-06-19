@@ -14,8 +14,8 @@ class TopCards extends StatelessWidget {
       children: <Widget>[
         ClipRect(
           child: OverflowBox(
-            maxWidth: width * 7 / 8,
-            minWidth: width * 7 / 8,
+            maxWidth: width * 10 / 6,
+            minWidth: width * 10 / 6,
             child: Image(
               fit: BoxFit.cover,
               image: NetworkImage(

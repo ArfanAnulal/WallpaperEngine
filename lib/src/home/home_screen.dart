@@ -8,13 +8,23 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double width = MediaQuery.sizeOf(context).width;
     return Scaffold(
       appBar: AppBar(
         title: const AppTitleWidget(),
         leading: Icon(Icons.account_circle),
         actions: [Icon(Icons.search)],
       ),
-      body: const CarouselWidget()
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(height: width/1.8,child:  const CarouselWidget()),
+            Placeholder(),
+            Placeholder(),
+            Placeholder()
+          ],
+        ),
+      )//adding column poses issue, prolly with height. fix that to add api called images below.
       );
   }
 }
