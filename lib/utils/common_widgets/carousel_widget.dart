@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wallpaper_app/res/constants/app_constants.dart';
-import 'package:wallpaper_app/utils/common_widgets.dart/top_cards.dart';
+import 'package:wallpaper_app/utils/common_widgets/top_cards.dart';
 
 class CarouselWidget extends StatefulWidget {
   const CarouselWidget({super.key});
@@ -23,22 +23,19 @@ class _CarouselWidgetState extends State<CarouselWidget> {
   Widget build(BuildContext context) {
      final double width = MediaQuery.sizeOf(context).width;
     
-    return ListView(
-      children: [
-        ConstrainedBox(
-          constraints: BoxConstraints(maxHeight: width / 2),
-          child: CarouselView.weighted(
-            padding: EdgeInsets.only(left: 5,right: 5),
-            controller: controller,
-            itemSnapping: true,
-            flexWeights: const <int>[1, 7, 1],
-            children:
-                urlsList.map((String image) {
-                  return TopCards(imageInfo: image);
-                }).toList(),
-          ),
-        ),
-        ],
-      );
+    return ConstrainedBox(
+      constraints: BoxConstraints(maxHeight: width / 2),
+      child: CarouselView.weighted(
+        scrollDirection: Axis.horizontal,
+        padding: EdgeInsets.only(left: 5,right: 5),
+        controller: controller,
+        itemSnapping: true,
+        flexWeights: const <int>[1, 7, 1],
+        children:
+            urlsList.map((String image) {
+              return TopCards(imageInfo: image);
+            }).toList(),
+      ),
+    );
   }
 }

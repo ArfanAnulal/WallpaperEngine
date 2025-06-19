@@ -1,7 +1,8 @@
 
 import 'package:flutter/material.dart';
-import 'package:wallpaper_app/src/home/carousel_widget.dart';
-import 'package:wallpaper_app/utils/common_widgets.dart/app_title_widget.dart';
+import 'package:wallpaper_app/utils/common_widgets/carousel_widget.dart';
+import 'package:wallpaper_app/utils/common_widgets/app_title_widget.dart';
+import 'package:wallpaper_app/utils/common_widgets/grid_builder.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -15,16 +16,18 @@ class HomeScreen extends StatelessWidget {
         leading: Icon(Icons.account_circle),
         actions: [Icon(Icons.search)],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(height: width/1.8,child:  const CarouselWidget()),
-            Placeholder(),
-            Placeholder(),
-            Placeholder()
-          ],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(height: width/2,child:  const CarouselWidget()),
+              SizedBox(height: 20,),
+              SizedBox(height: width*5,
+              child:GridBuilder(),)
+            ],
+          ),
         ),
-      )//adding column poses issue, prolly with height. fix that to add api called images below.
+      )
       );
   }
 }
