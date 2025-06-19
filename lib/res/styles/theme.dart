@@ -8,7 +8,7 @@ class AppTheme {
       color: ColorPalette.appBarColor,
       centerTitle: true,
       toolbarHeight: 80,
-      titleTextStyle: TextStyle(fontFamily: 'NoyhR', fontSize: 32, fontWeight: FontWeight.bold, color: FontPalette.appBarTextColor),
+      titleTextStyle: TextStyle(fontFamily: 'NoyhR', fontSize: 32, fontWeight: FontWeight.bold, color: FontPalette.appBarTextSecondHalfColor),
       actionsPadding: EdgeInsets.all(8),
       actionsIconTheme: IconThemeData(
         size: 35,
