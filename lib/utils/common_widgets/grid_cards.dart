@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:wallpaper_app/models/wallpaper_model.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class GridCards extends StatefulWidget {
   const GridCards({super.key, required this.hitDetails});
@@ -22,22 +23,18 @@ class _GridCardsState extends State<GridCards> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Expanded(
-              child: Image(
-                fit: BoxFit.cover,
-                image: NetworkImage(widget.hitDetails.largeImageUrl!),
-                loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-                if (loadingProgress == null) {
-                  return child;
-                }
-                return Shimmer.fromColors(
-                  baseColor: Colors.blue[300]!,
-                  highlightColor: Colors.grey[100]!,
-                  child: Container(
-                    color: Colors.blue,
-                  ),
-                );
-              },
+              child: CachedNetworkImage(
+              imageUrl: widget.hitDetails.largeImageUrl!,
+              fit: BoxFit.cover,
+              placeholder: (context, url) => Shimmer.fromColors(
+                baseColor: Colors.blue[300]!,
+                highlightColor: Colors.grey[300]!,
+                child: Container(
+                  color: Colors.white,
+                ),
               ),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
+            ),
             ),
             Container(
             padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
