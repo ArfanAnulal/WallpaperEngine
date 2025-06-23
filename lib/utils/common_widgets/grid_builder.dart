@@ -22,36 +22,39 @@ class _GridBuilderState extends State<GridBuilder> {
   }
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Hit>>(
-      future: _futureHits, 
-      builder: (context,snapshot){
-            if(snapshot.connectionState == ConnectionState.waiting ){
-              return const ShimmerGrid();
-            }
-            else if(snapshot.hasData){
-              final hits = snapshot.data!;
-              return GridView.builder(
-
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 10,
-                  mainAxisExtent: 270,
-                  mainAxisSpacing: 10
-
-                ),
-                itemCount: hits.length,
-                itemBuilder: (context, index){
-                  final hit = hits[index];
-                  return GridCards(hitDetails:hit);
-                }
-              );
+    return RefreshIndicator(
+      onRefresh: () => _futureHits = ApiCalls().getAPI(),
+      child: FutureBuilder<List<Hit>>(
+        future: _futureHits, 
+        builder: (context,snapshot){
+              if(snapshot.connectionState == ConnectionState.waiting ){
+                return const ShimmerGrid();
               }
-              else{
-              return const Text('No posts found.');
-            }
-        },
-      );
+              else if(snapshot.hasData){
+                final hits = snapshot.data!;
+                return GridView.builder(
+      
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 10,
+                    mainAxisExtent: 270,
+                    mainAxisSpacing: 10
+      
+                  ),
+                  itemCount: hits.length,
+                  itemBuilder: (context, index){
+                    final hit = hits[index];
+                    return GridCards(hitDetails:hit);
+                  }
+                );
+                }
+                else{
+                return const Text('No posts found.');
+              }
+          },
+        ),
+    );
   }
 }
