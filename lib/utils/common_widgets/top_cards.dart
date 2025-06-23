@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 
@@ -11,16 +12,17 @@ class TopCards extends StatelessWidget {
     final double width = MediaQuery.sizeOf(context).width;
     return Stack(
       alignment: AlignmentDirectional.bottomStart,
-      children: <Widget>[
-        ClipRect(
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.all(Radius.circular(25)),
           child: OverflowBox(
             maxWidth: width * 10 / 6,
             minWidth: width * 10 / 6,
-            child: Image(
+            child: CachedNetworkImage(
+              imageUrl: imageInfo,
               fit: BoxFit.cover,
-              image: NetworkImage(
-                imageInfo,
-              ),
+              
+              errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
           ),
         ),
@@ -34,14 +36,14 @@ class TopCards extends StatelessWidget {
                 'Awesome',
                 overflow: TextOverflow.clip,
                 softWrap: false,
-                style: Theme.of(context).textTheme.headlineLarge?.copyWith(color: Colors.white),
+                style: Theme.of(context).textTheme.headlineLarge?.copyWith(color: Colors.white,fontFamily: 'NoyhR'),
               ),
               const SizedBox(height: 10),
               Text(
                 'It works!',
                 overflow: TextOverflow.clip,
                 softWrap: false,
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white),
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white, fontFamily: 'NoyhR'),
               ),
             ],
           ),

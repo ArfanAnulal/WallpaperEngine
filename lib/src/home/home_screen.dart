@@ -22,12 +22,11 @@ class HomeScreen extends StatelessWidget {
             children: [
               SizedBox(height: width/2,child:  const CarouselWidget()),
               SizedBox(height: 20,),
-              SizedBox(height: width*5,
-              child:GridBuilder(),)
+              Padding(padding: EdgeInsetsGeometry.only(bottom: 20),child: GridBuilder())
             ],
           ),
         ),
-      )
+      ),
       );
   }
 }
