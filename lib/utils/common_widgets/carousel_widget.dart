@@ -10,7 +10,7 @@ class CarouselWidget extends StatefulWidget {
 }
 
 class _CarouselWidgetState extends State<CarouselWidget> {
-  final CarouselController controller = CarouselController(initialItem: 1);
+  final CarouselController controller = CarouselController(initialItem: 2);
   final List<String> urlsList = AppConstants.topCards;//list of url's
 
   @override
@@ -18,7 +18,7 @@ class _CarouselWidgetState extends State<CarouselWidget> {
     controller.dispose();
     super.dispose();
   }
-
+ 
   @override
   Widget build(BuildContext context) {
      final double width = MediaQuery.sizeOf(context).width;
@@ -26,11 +26,12 @@ class _CarouselWidgetState extends State<CarouselWidget> {
     return ConstrainedBox(
       constraints: BoxConstraints(maxHeight: width / 2),
       child: CarouselView.weighted(
+        elevation: 5,
         scrollDirection: Axis.horizontal,
         padding: EdgeInsets.only(left: 5,right: 5),
         controller: controller,
         itemSnapping: true,
-        flexWeights: const <int>[1, 7, 1],
+        flexWeights: const <int>[1,1, 10, 1,1],
         children:
             urlsList.map((String image) {
               return TopCards(imageInfo: image);

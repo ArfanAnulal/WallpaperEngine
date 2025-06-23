@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 
@@ -16,11 +17,11 @@ class TopCards extends StatelessWidget {
           child: OverflowBox(
             maxWidth: width * 10 / 6,
             minWidth: width * 10 / 6,
-            child: Image(
+            child: CachedNetworkImage(
+              imageUrl: imageInfo,
               fit: BoxFit.cover,
-              image: NetworkImage(
-                imageInfo,
-              ),
+              
+              errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
           ),
         ),
