@@ -11,7 +11,7 @@ class TopCards extends StatelessWidget {
     final double width = MediaQuery.sizeOf(context).width;
     return Stack(
       alignment: AlignmentDirectional.bottomStart,
-      children: <Widget>[
+      children: [
         ClipRect(
           child: OverflowBox(
             maxWidth: width * 10 / 6,
