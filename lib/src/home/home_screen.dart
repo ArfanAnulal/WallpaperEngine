@@ -1,14 +1,16 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:wallpaper_app/providers/wallpaper_provider.dart';
 import 'package:wallpaper_app/utils/common_widgets/carousel_widget.dart';
 import 'package:wallpaper_app/utils/common_widgets/app_title_widget.dart';
 import 'package:wallpaper_app/utils/common_widgets/grid_builder.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final double width = MediaQuery.sizeOf(context).width;
     return Scaffold(
       appBar: AppBar(
@@ -22,7 +24,9 @@ class HomeScreen extends StatelessWidget {
             children: [
               SizedBox(height: width/2,child:  const CarouselWidget()),
               SizedBox(height: 20,),
-              Padding(padding: EdgeInsetsGeometry.only(bottom: 20),child: GridBuilder())
+              Padding(padding: EdgeInsetsGeometry.only(bottom: 20),child: GridBuilder()),
+              ElevatedButton(onPressed: (){ref.read(wallpaperProvider.notifier).loadWallpaper();}, child: Text('Load More!')),
+              SizedBox(height: 20,),
             ],
           ),
         ),

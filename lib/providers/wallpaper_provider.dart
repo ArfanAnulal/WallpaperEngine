@@ -12,12 +12,13 @@ class WallpaperNotifier extends Notifier<List<Hit>> {
     return [];
   }
 
+  int pages = 1;
+  Future<void> loadWallpaper() async {
 
-  Future<void> loadWallpaper({required int pages}) async {
     try {
       final List<Hit> newWallpapers = await ApiCalls().getAPI(page: pages);
-
       state = [...state, ...newWallpapers];
+      pages++;
       
 
     } catch (e) {
