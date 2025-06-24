@@ -5,8 +5,8 @@ import 'package:wallpaper_app/res/constants/app_constants.dart';
 class ApiCalls {
   final _dio = Dio();
   
-  Future<List<Hit>> getAPI({required int page}) async{
-    final String url = '${AppConstants.apiURL}&page=$page';
+  Future<List<Hit>> getAPI({required int page, query='nature'}) async{
+    final String url = '${AppConstants.apiURL}&page=$page&q=$query';
     try {
       final response = await _dio.get(url);
 

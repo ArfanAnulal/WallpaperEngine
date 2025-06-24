@@ -82,6 +82,34 @@ class WallpaperNotifier extends Notifier<WallpaperState> {
       state = state.copyWith(error: 'Failed to load more.', isPaginating: false);
     }
   }
+
+
+
+
+
+
+
+
+  Future<void> searchWallpapers(trimmedQuery) async {
+
+    if (state.isInitialLoading || state.isPaginating) return;
+
+
+    state = state.copyWith(isPaginating: true, clearError: true);
+
+    try {
+      final newWallpapers = await ApiCalls().getAPI(page: page, query: trimmedQuery);
+      final allWallpapers = [...newWallpapers];
+      
+      state = state.copyWith(
+        wallpapers: allWallpapers,
+        isPaginating: false,
+      );
+      page++;
+    } catch (e) {
+      state = state.copyWith(error: 'Failed to load more.', isPaginating: false);
+    }
+  }
 }
 
   
