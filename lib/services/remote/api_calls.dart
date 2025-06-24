@@ -4,19 +4,19 @@ import 'package:wallpaper_app/res/constants/app_constants.dart';
 
 class ApiCalls {
   final _dio = Dio();
-  final String _url = AppConstants.apiURL;
-  Future<List<Hit>> getAPI() async{
+  
+  Future<List<Hit>> getAPI({required int page}) async{
+    final String url = '${AppConstants.apiURL}&page=$page';
     try {
-      final response = await _dio.get(_url);
+      final response = await _dio.get(url);
 
       if (response.statusCode == 200) {
-        final List<dynamic> data = response.data['hits'];
-        return data.map((json) => Hit.fromJson(json)).toList();
+        final basicData = Basicdata.fromJson(response.data);
+        return basicData.hits!;
       } else {
         throw Exception('Failed to load posts (Status code: ${response.statusCode})');
       }
     } catch (e) {
-      print(e);
       throw Exception('Failed to load posts: $e');
     }
 }
