@@ -46,14 +46,14 @@ class WallpaperNotifier extends Notifier<WallpaperState> {
   }
 
  
-  Future<void> loadInitialWallpapers() async {
+  Future<void> loadInitialWallpapers({trimmedQuery}) async {
     if (state.isInitialLoading) return;
 
     page = 1;
     state = state.copyWith(isInitialLoading: true, wallpapers: [], clearError: true);
     
     try {
-      final newWallpapers = await ApiCalls().getAPI(page: page);
+      final newWallpapers = await ApiCalls().getAPI(page: page,trimmedQuery:trimmedQuery);
       state = state.copyWith(wallpapers: newWallpapers, isInitialLoading: false);
       page++;
     } catch (e) {
@@ -90,26 +90,6 @@ class WallpaperNotifier extends Notifier<WallpaperState> {
 
 
 
-  Future<void> searchWallpapers(trimmedQuery) async {
-
-    if (state.isInitialLoading || state.isPaginating) return;
-
-
-    state = state.copyWith(isPaginating: true, clearError: true);
-
-    try {
-      final newWallpapers = await ApiCalls().getAPI(page: page, query: trimmedQuery);
-      final allWallpapers = [...newWallpapers];
-      
-      state = state.copyWith(
-        wallpapers: allWallpapers,
-        isPaginating: false,
-      );
-      page++;
-    } catch (e) {
-      state = state.copyWith(error: 'Failed to load more.', isPaginating: false);
-    }
-  }
 }
 
   

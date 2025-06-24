@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wallpaper_app/providers/wallpaper_provider.dart';
 import 'package:wallpaper_app/utils/common_functions/custom_search_delegate.dart';
+// import 'package:wallpaper_app/utils/common_functions/custom_search_delegate.dart';
 import 'package:wallpaper_app/utils/common_widgets/carousel_widget.dart';
 import 'package:wallpaper_app/utils/common_widgets/app_title_widget.dart';
 import 'package:wallpaper_app/utils/common_widgets/grid_builder.dart';
@@ -45,10 +46,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       appBar: AppBar(
         title: const AppTitleWidget(),
         leading: Icon(Icons.account_circle),
-        actions: [IconButton(icon:Icon(Icons.search), onPressed:(){showSearch(
+        actions: [IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () {
+              // This Flutter function launches the SearchDelegate.
+              showSearch(
                 context: context,
                 delegate: CustomSearchDelegate(ref: ref),
-              );} ,)],
+              );
+            },
+          ),],
       ),
       body: SafeArea(
         child: RefreshIndicator(

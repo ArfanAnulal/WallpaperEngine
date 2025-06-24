@@ -48,7 +48,7 @@ class CustomSearchDelegate extends SearchDelegate<String> {
 
       WidgetsBinding.instance.addPostFrameCallback((_) {
 
-        ref.read(wallpaperProvider.notifier).searchWallpapers(trimmedQuery);
+        ref.read(wallpaperProvider.notifier).loadInitialWallpapers(trimmedQuery: trimmedQuery);
 
         close(context, trimmedQuery);
       });
