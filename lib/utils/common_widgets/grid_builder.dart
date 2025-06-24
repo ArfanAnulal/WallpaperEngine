@@ -16,14 +16,35 @@ class _GridBuilderState extends ConsumerState<GridBuilder> {
   void initState() {
     super.initState();
     Future.microtask(
-      () => ref.read(wallpaperProvider.notifier).loadWallpaper(),
+      () => ref.read(wallpaperProvider.notifier).loadInitialWallpapers(),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+
+    ref.listen<WallpaperState>(wallpaperProvider, (previous, next) {
+      if (next.error != null && previous?.error != next.error) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: WallpaperNotifier.page>=11?Text("You've seen all images!"):Text(next.error!),
+            backgroundColor: Colors.redAccent,
+          ),
+        );
+      }
+    });
+
+
+
+
     final finalwallpapers = ref.watch(wallpaperProvider);
-    return GridView.builder(
+    if (finalwallpapers.isInitialLoading ){
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+    else{
+      return GridView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -32,11 +53,13 @@ class _GridBuilderState extends ConsumerState<GridBuilder> {
         mainAxisExtent: 270,
         mainAxisSpacing: 10,
       ),
-      itemCount: finalwallpapers.length,
+      itemCount: finalwallpapers.wallpapers.length,
       itemBuilder: (context, index) {
-        final hit = finalwallpapers[index];
+        final hit = finalwallpapers.wallpapers[index];
         return GridCards(hitDetails: hit);
       },
     );
+    }
+    
   }
 }

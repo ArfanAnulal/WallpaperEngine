@@ -6,11 +6,39 @@ import 'package:wallpaper_app/utils/common_widgets/carousel_widget.dart';
 import 'package:wallpaper_app/utils/common_widgets/app_title_widget.dart';
 import 'package:wallpaper_app/utils/common_widgets/grid_builder.dart';
 
-class HomeScreen extends ConsumerWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends ConsumerState<HomeScreen> {
+  final _scrollController = ScrollController();
+
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_scrollListener);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_scrollListener);
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _scrollListener() {
+    if (_scrollController.position.pixels ==
+        _scrollController.position.maxScrollExtent) {
+      ref.read(wallpaperProvider.notifier).loadMoreWallpapers();
+    }
+  }
+  @override
+  Widget build(BuildContext context) {
+    final wallpaperState = ref.watch(wallpaperProvider);
     final double width = MediaQuery.sizeOf(context).width;
     return Scaffold(
       appBar: AppBar(
@@ -19,15 +47,34 @@ class HomeScreen extends ConsumerWidget {
         actions: [Icon(Icons.search)],
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(height: width/2,child:  const CarouselWidget()),
-              SizedBox(height: 20,),
-              Padding(padding: EdgeInsetsGeometry.only(bottom: 20),child: GridBuilder()),
-              ElevatedButton(onPressed: (){ref.read(wallpaperProvider.notifier).loadWallpaper();}, child: Text('Load More!')),
-              SizedBox(height: 20,),
-            ],
+        child: RefreshIndicator(
+          onRefresh: () async {
+            await ref.read(wallpaperProvider.notifier).loadInitialWallpapers();
+          },
+          child: SingleChildScrollView(
+            controller: _scrollController,
+            child: Column(
+              children: [
+                SizedBox(height: width/2,child:  const CarouselWidget()),
+                SizedBox(height: 20,),
+                Padding(padding: EdgeInsetsGeometry.only(bottom: 20),child: GridBuilder()),
+                if (wallpaperState.isPaginating)
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 16.0),
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  ),
+                if (wallpaperState.error != null && !wallpaperState.isInitialLoading && wallpaperState.wallpapers.isNotEmpty)
+                   Padding(
+                    padding: const EdgeInsets.only(bottom: 16.0),
+                    child: Center(
+                      child: Text(wallpaperState.error!),
+                    ),
+                  ),
+                  
+              ],
+            ),
           ),
         ),
       ),
