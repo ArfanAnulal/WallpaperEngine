@@ -1,5 +1,25 @@
 import 'package:wallpaper_app/res/enums/enums.dart';
 
+
+class Basicdata {
+    int? total;
+    int? totalHits;
+    List<Hit>? hits;
+
+    Basicdata({
+        this.total,
+        this.totalHits,
+        this.hits,
+    });
+
+    factory Basicdata.fromJson(Map<String, dynamic> json) => Basicdata(
+        total: json["total"],
+        totalHits: json["totalHits"],
+        hits: json["hits"] == null ? [] : List<Hit>.from(json["hits"]!.map((x) => Hit.fromJson(x))),
+    );
+}
+
+
 class Hit {
     final int? id;
     final String? pageUrl;
