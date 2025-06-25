@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wallpaper_app/providers/wallpaper_provider.dart';
@@ -16,7 +15,6 @@ class HomeScreen extends ConsumerStatefulWidget {
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   final _scrollController = ScrollController();
-
 
   @override
   void initState() {
@@ -37,15 +35,17 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       ref.read(wallpaperProvider.notifier).loadMoreWallpapers();
     }
   }
+
   @override
   Widget build(BuildContext context) {
     final wallpaperState = ref.watch(wallpaperProvider);
     final double width = MediaQuery.sizeOf(context).width;
     return Scaffold(
       appBar: AppBar(
-        title: const AppTitleWidget(),
+        title: Hero(tag: 'app_title',child: const AppTitleWidget()),
         leading: Icon(Icons.account_circle),
-        actions: [IconButton(
+        actions: [
+          IconButton(
             icon: const Icon(Icons.search),
             onPressed: () {
               showSearch(
@@ -53,7 +53,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 delegate: CustomSearchDelegate(ref: ref),
               );
             },
-          ),],
+          ),
+        ],
       ),
       body: SafeArea(
         child: RefreshIndicator(
@@ -64,22 +65,26 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             controller: _scrollController,
             child: Column(
               children: [
-                SizedBox(height: width/2,child:  const CarouselWidget()),
-                SizedBox(height: 20,),
-                Padding(padding: EdgeInsetsGeometry.only(bottom: 20),child: GridBuilder()),
+                SizedBox(height: width / 2, child: const CarouselWidget()),
+                SizedBox(height: 20),
+                Padding(
+                  padding: EdgeInsetsGeometry.only(
+                    bottom: 20,
+                    right: 10,
+                    left: 10,
+                  ),
+                  child: GridBuilder(),
+                ),
                 if (wallpaperState.isPaginating)
                   const Padding(
                     padding: EdgeInsets.only(bottom: 50.0),
-                    child: Center(
-                      child: CircularProgressIndicator(),
-                    ),
+                    child: Center(child: CircularProgressIndicator()),
                   ),
-                  
               ],
             ),
           ),
         ),
       ),
-      );
+    );
   }
 }
