@@ -43,7 +43,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Hero(tag: 'app_title',child: const AppTitleWidget()),
-        leading: Icon(Icons.account_circle),
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: CircleAvatar(backgroundImage: AssetImage('assets/images/wallpaper_engine.png'),),
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.search),
