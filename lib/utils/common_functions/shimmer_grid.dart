@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:wallpaper_app/utils/common_widgets/grid_card_shimmer.dart';
+import 'package:wallpaper_app/utils/common_functions/grid_card_shimmer.dart';
 
 class ShimmerGrid extends StatelessWidget {
   const ShimmerGrid({super.key});
