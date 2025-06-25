@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-
+// import 'package:wallpaper_app/utils/common_widgets/more_details_card.dart';
 
 class TopCards extends StatelessWidget {
   const TopCards({super.key, required this.imageInfo});
@@ -21,7 +21,7 @@ class TopCards extends StatelessWidget {
             child: CachedNetworkImage(
               imageUrl: imageInfo,
               fit: BoxFit.cover,
-              
+    
               errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
           ),
@@ -36,14 +36,20 @@ class TopCards extends StatelessWidget {
                 'Awesome',
                 overflow: TextOverflow.clip,
                 softWrap: false,
-                style: Theme.of(context).textTheme.headlineLarge?.copyWith(color: Colors.white,fontFamily: 'NoyhR'),
+                style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                  color: Colors.white,
+                  fontFamily: 'NoyhR',
+                ),
               ),
               const SizedBox(height: 10),
               Text(
                 'It works!',
                 overflow: TextOverflow.clip,
                 softWrap: false,
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white, fontFamily: 'NoyhR'),
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: Colors.white,
+                  fontFamily: 'NoyhR',
+                ),
               ),
             ],
           ),
