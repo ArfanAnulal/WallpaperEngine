@@ -27,8 +27,8 @@ class _GridBuilderState extends ConsumerState<GridBuilder> {
       if (next.error != null && previous?.error != next.error) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: WallpaperNotifier.page>=11?Text("You've seen all images!"):Text(next.error!),
-            backgroundColor: Colors.redAccent,
+            content: WallpaperNotifier.page>=11?Text("You've seen all images!"):Text(next.error!+"\nTry restarting the app and checking your internet"),
+            backgroundColor: WallpaperNotifier.page>=11?const Color.fromARGB(255, 197, 197, 44):Colors.redAccent,
           ),
         );
       }

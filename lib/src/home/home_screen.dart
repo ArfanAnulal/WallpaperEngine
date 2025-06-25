@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wallpaper_app/providers/wallpaper_provider.dart';
 import 'package:wallpaper_app/utils/common_functions/custom_search_delegate.dart';
-// import 'package:wallpaper_app/utils/common_functions/custom_search_delegate.dart';
 import 'package:wallpaper_app/utils/common_widgets/carousel_widget.dart';
 import 'package:wallpaper_app/utils/common_widgets/app_title_widget.dart';
-import 'package:wallpaper_app/utils/common_widgets/grid_builder.dart';
+import 'package:wallpaper_app/utils/common_functions/grid_builder.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -49,7 +48,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         actions: [IconButton(
             icon: const Icon(Icons.search),
             onPressed: () {
-              // This Flutter function launches the SearchDelegate.
               showSearch(
                 context: context,
                 delegate: CustomSearchDelegate(ref: ref),
