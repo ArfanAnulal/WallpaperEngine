@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:open_file/open_file.dart';
+import 'package:media_store_plus/media_store_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shimmer/shimmer.dart';
@@ -30,64 +30,68 @@ class _MoreDetailsCardState extends State<MoreDetailsCard> {
     tags = (widget.hitDetails.tags ?? '').split(',');
   }
 
-  Future<void> _downloadAndOpenFile(String url,String previewUrl, BuildContext context) async {
-    var status = await Permission.photos.request();
-    if (!status.isGranted) {
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-              content: Text('Storage permission is required to download files.')),
-        );
-      }
-      return;
-    }
-
-    setState(() {
-      _isDownloading = true;
-      _progress = 0.0;
-    });
-
-    try {
-      final Directory? dir = await getApplicationDocumentsDirectory();
-      if (dir == null) {
-        throw Exception("Could not get the application documents directory.");
-      }
-
-      final String savePath = '${dir.path}/${previewUrl.split('/').last}';
-
-
-      await Dio().download(
-        url,
-        savePath,
-        onReceiveProgress: (received, total) {
-          if (total != -1) {
-            setState(() {
-              _progress = received / total;
-            });
-          }
-        },
+  Future<void> _downloadAndSaveToGallery(String url, BuildContext context) async {
+  var status = await Permission.photos.request();
+  if (!status.isGranted) {
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Photo library permission is required.')),
       );
-
-
-      final result = await OpenFile.open(savePath);
-
-      if (result.type != ResultType.done && context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Could not open the file: ${result.message}')),
-        );
-      }
-    } catch (e) {
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error downloading file: $e')),
-        );
-      }
-    } finally {
-      setState(() {
-        _isDownloading = false;
-      });
     }
+    return;
   }
+
+  setState(() {
+    _isDownloading = true;
+    _progress = 0.0;
+  });
+
+  try {
+    final Directory tempDir = await getTemporaryDirectory();
+    final String tempPath = '${tempDir.path}/${DateTime.now().millisecondsSinceEpoch}.jpg';
+    
+    await Dio().download(
+      url,
+      tempPath,
+      onReceiveProgress: (received, total) {
+        if (total != -1) {
+          setState(() {
+            _progress = received / total;
+          });
+        }
+      },
+    );
+
+    final mediaStore = MediaStore();
+    final Directory appDir = await getApplicationDocumentsDirectory();
+    MediaStore.appFolder = appDir.toString();
+    await MediaStore.ensureInitialized();
+    
+    await mediaStore.saveFile(
+        tempFilePath: tempPath,
+        dirType: DirType.photo, 
+        dirName: DirName.pictures, 
+        relativePath: "Wallpaper Engine", 
+    );
+
+
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Saved to Gallery!')),
+      );
+    }
+  } catch (e) {
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: $e')),
+      );
+    }
+  } finally {
+    setState(() {
+      _isDownloading = false;
+    });
+  }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -209,8 +213,8 @@ class _MoreDetailsCardState extends State<MoreDetailsCard> {
                     InkWell(
                       onTap: _isDownloading
                           ? null 
-                          : () => _downloadAndOpenFile(
-                              widget.hitDetails.largeImageUrl!, widget.hitDetails.previewUrl!,context),
+                          : () => _downloadAndSaveToGallery(
+                              widget.hitDetails.largeImageUrl!, context),
                       borderRadius: BorderRadius.circular(20.0),
                       child: Chip(
                         backgroundColor: Colors.green,
