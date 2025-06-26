@@ -28,7 +28,7 @@ WallpaperEngine is a sleek, modern, and high-performance wallpaper browsing appl
 
 **Animated Demo:**
 
-<!-- <img src="assets/documentation/demo.gif" alt="Loading State" width="250"> -->
+<img src="assets/documentation/demo.gif" alt="Loading State" width="250">
 
 
 ## **✨ Features**
