@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-// import 'package:wallpaper_app/utils/common_widgets/more_details_card.dart';
+import 'package:wallpaper_app/models/topcarddata.dart';
 
 class TopCards extends StatelessWidget {
-  const TopCards({super.key, required this.imageInfo});
+  const TopCards({super.key, required this.topCardInfo});
 
-  final String imageInfo;
+  final TopCardData topCardInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class TopCards extends StatelessWidget {
             maxWidth: width * 10 / 6,
             minWidth: width * 10 / 6,
             child: CachedNetworkImage(
-              imageUrl: imageInfo,
+              imageUrl: topCardInfo.url,
               fit: BoxFit.cover,
     
               errorWidget: (context, url, error) => const Icon(Icons.error),
@@ -31,9 +31,9 @@ class TopCards extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
+            children: [
               Text(
-                'Trending',
+                topCardInfo.heading,
                 overflow: TextOverflow.clip,
                 softWrap: false,
                 style: Theme.of(context).textTheme.headlineLarge?.copyWith(
@@ -43,7 +43,7 @@ class TopCards extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               Text(
-                "Check 'em out!",
+                topCardInfo.subheading,
                 overflow: TextOverflow.clip,
                 softWrap: false,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(

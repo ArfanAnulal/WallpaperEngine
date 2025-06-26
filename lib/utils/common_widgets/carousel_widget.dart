@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wallpaper_app/models/topcarddata.dart';
 import 'package:wallpaper_app/res/constants/app_constants.dart';
 import 'package:wallpaper_app/utils/common_widgets/top_cards.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -12,7 +13,7 @@ class CarouselWidget extends StatefulWidget {
 
 class _CarouselWidgetState extends State<CarouselWidget> {
   final CarouselController controller = CarouselController(initialItem: 2);
-  final List<String> urlsList = AppConstants.topCards;//list of url's
+  final List<TopCardData> urlsList = AppConstants.topCards;//list of TopCardData
 
   @override
   void dispose() {
@@ -30,8 +31,8 @@ class _CarouselWidgetState extends State<CarouselWidget> {
     enlargeCenterPage: true,
     viewportFraction: 0.8,
   ),
-  items: urlsList.map((image) {
-    return TopCards(imageInfo: image);
+  items: urlsList.map((topCardData) {
+    return TopCards(topCardInfo: topCardData);
   }).toList(),
 
   );
