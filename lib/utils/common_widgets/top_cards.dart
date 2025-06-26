@@ -33,7 +33,7 @@ class TopCards extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Text(
-                'Awesome',
+                'Trending',
                 overflow: TextOverflow.clip,
                 softWrap: false,
                 style: Theme.of(context).textTheme.headlineLarge?.copyWith(
@@ -43,7 +43,7 @@ class TopCards extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               Text(
-                'It works!',
+                "Check 'em out!",
                 overflow: TextOverflow.clip,
                 softWrap: false,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(

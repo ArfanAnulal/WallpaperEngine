@@ -5,8 +5,6 @@ WallpaperEngine is a sleek, modern, and high-performance wallpaper browsing appl
 
 ## **📸 App Showcase**
 
-*(This is the most important part of your README. **Replace the placeholders below with actual screenshots or a GIF** of your running application. You can use a tool like [ScreenToGif](https://www.screentogif.com/) or your phone's screen recorder.)*
-
 
 <table>
   <tr>
@@ -18,11 +16,11 @@ WallpaperEngine is a sleek, modern, and high-performance wallpaper browsing appl
    </td>
   </tr>
   <tr>
-   <td><em>[Insert Screenshot of the Home Screen Here]</em>
+   <td><em><img src="assets/documentation/homeScreen.png" alt="Home Screen" width="250"></em>
    </td>
-   <td><em>[Insert</em> Screenshot of the Details Screen<em> Here]</em>
+   <td><em><img src="assets/documentation/moreDetails.png" alt="Details Screen" width="250"></em>
    </td>
-   <td><em>[Insert Screenshot of the Shimmer Effect Here]</em>
+   <td><em><img src="assets/documentation/shimmerEffect.png" alt="Loading State" width="250"></em>
    </td>
   </tr>
 </table>
@@ -30,7 +28,7 @@ WallpaperEngine is a sleek, modern, and high-performance wallpaper browsing appl
 
 **Animated Demo:**
 
-*[Insert* a GIF demonstrating the app's features:* scrolling, searching, opening details, and downloading an image.]*
+<!-- <img src="assets/documentation/demo.gif" alt="Loading State" width="250"> -->
 
 
 ## **✨ Features**
