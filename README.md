@@ -40,7 +40,7 @@ This application is packed with features designed to provide a seamless and enga
 
 
 * **Dynamic Home Page**: A visually appealing home screen featuring an auto-playing carousel of featured wallpapers.
-* **Infinite** Scrolling** Grid**: Browse an endless stream of wallpapers. The app automatically fetches more images as you scroll to the bottom.
+* **Infinite Scrolling Grid**: Browse an endless stream of wallpapers. The app automatically fetches more images as you scroll to the bottom.
 * **Robust Search Functionality**: Instantly search for wallpapers by keywords with a clean, integrated search interface.
 * **Advanced State Management**: Built with **Flutter Riverpod** for a reactive, scalable, and robust state management solution that efficiently handles UI updates, data fetching, and error states.
 * **Efficient Networking**: Utilizes the **Dio** package for powerful and reliable communication with the Pixabay API.
@@ -81,17 +81,25 @@ The project leverages a modern, scalable tech stack and follows best practices f
 
 To clone and run this application, you'll need Git and Flutter installed on your computer. From your command line:
 
-# Clone this repository \
-$ git clone [YOUR_REPOSITORY_URL] \
- \
-# Go into the repository \
-$ cd wallpaper_app \
- \
-# Install dependencies \
-$ flutter pub get \
- \
-# Run the app \
-$ flutter run \
+### 1. Clone this repository 
+```
+$ git clone https://github.com/ArfanAnulal
+```
+
+### 2. Go into the repository 
+```
+$ cd wallpaper_app
+```
+ 
+### 3 .Install dependencies 
+```
+$ flutter pub get
+```
+ 
+### 4 .Run the app 
+```
+$ flutter run
+```
 
 
 
